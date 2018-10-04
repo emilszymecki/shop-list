@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import MainListElement from "./MainListElement";
+import MainListElementColor from "./MainListElementColor";
 
 const R = require('ramda');
 
@@ -35,6 +36,18 @@ const MainList = (props) =>  {
 		return (
 			<div>
 				{JSON.stringify(newState)}
+				{newState.map( ({type:name, attr}) => {
+					const pair = R.zip(R.keys(attr),R.values(attr));
+						return (
+						<React.Fragment key={name}>
+								<MainListElement name={name}>
+									<MainListElementColor color={pair}/>
+								</MainListElement>
+						</React.Fragment>
+						)
+				}
+
+					)}
 			</div>
 		);
 }

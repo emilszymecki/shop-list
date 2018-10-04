@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
 
-const MainListElement = ({name}) => {
+
+const MainListElement = ({name,children}) => {
 		return(
+			<React.Fragment>
 				<h1>{name}</h1>
+				{children}
+			</React.Fragment>
 			)
 }
 
