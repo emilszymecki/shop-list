@@ -3,14 +3,14 @@ const initState = {
    pickupBasket:[]
 }
 
-export const BASKET_ADD = 'BASKET_ADD';
-export const BASKET_PICKUP = 'BASKET_PICKUP';
+export const FILTER_ADD = 'FILTER_ADD';
 
-export const BasketAdd = (val) => ({type:BASKET_ADD, payload: val})
+
+export const FilterAdd = (val) => ({type:FILTER_ADD, payload: val})
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case BASKET_ADD:
+    case FILTER_ADD:
       return {...state, currentFilter: {...state.currentFilter,...action.payload}}
     default:
       return state
