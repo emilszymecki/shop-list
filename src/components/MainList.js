@@ -13,7 +13,7 @@ const MainList = (props) =>  {
 		const ColorsTest = !R.isEmpty(Colors)
 
 
-		const test = (state) => {
+		const CategoriesFilter = (state) => {
 				if(CategoriesTest){
 					return R.filter( el => Categories.indexOf(el.type) != -1,state)
 				}else{
@@ -21,10 +21,20 @@ const MainList = (props) =>  {
 				}
 		}
 
-		console.log(test(props.products))
+		const ColorsFilter = (state) => {
+				if(ColorsTest){
+					return R.map(x => R.assoc('attr',R.pickAll(Colors,R.prop("attr",x)),x),state)
+				}else{
+					return state
+				}
+		}
+
+		const newState = R.pipe(CategoriesFilter,ColorsFilter)(props.products)
+
+		console.log(newState)
 		return (
 			<div>
-				{JSON.stringify(props.products)}
+				{JSON.stringify(newState)}
 			</div>
 		);
 }
