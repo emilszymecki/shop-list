@@ -1,23 +1,34 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import MainListElement from "./MainListElement";
-class MainList extends Component {
-	render() {
+
+const R = require('ramda');
+
+const MainList = (props) =>  {
+
+		const Categories = props.filters.Categories
+		const CategoriesTest = !R.isEmpty(Categories)
+
+		const Colors = props.filters.Colors
+		const ColorsTest = !R.isEmpty(Colors)
+
+
+		const test = (state) => {
+				if(CategoriesTest){
+					return R.filter( el => Categories.indexOf(el.type) != -1,state)
+				}else{
+					return state
+				}
+		}
+
+		console.log(test(props.products))
 		return (
 			<div>
-				{this.props.pickupBasket.length == 0?<h1>Lista jest pusta</h1>: 
-					this.props.pickupBasket.map(el => {
-						return (
-							<div key={el}>
-								<MainListElement name={el}/>
-							</div>
-						);
-					})}
+				{JSON.stringify(props.products)}
 			</div>
 		);
-	}
 }
 
-export default connect(state => ({ pickupBasket: state.basket.pickupBasket }))(
+export default connect(state => ({ products: state.basket.products, filters:state.basket.currentFilter }))(
 	MainList
 );
