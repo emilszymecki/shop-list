@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { ProductsFilter } from "../reducers/basket";
 import MainListElement from "./MainListElement";
 import MainListElementColor from "./MainListElementColor";
 
@@ -31,16 +32,20 @@ const MainList = (props) =>  {
 		}
 
 		const newState = R.pipe(CategoriesFilter,ColorsFilter)(props.products)
+		props.ProductsFilter(newState)
 
-		console.log(newState)
+		//console.log(newState)
 		return (
 			<div>
 				{JSON.stringify(newState)}
 				{newState.map( ({type:name, attr}) => {
-					const pair = R.zip(R.keys(attr),R.values(attr));
+					const pair = R.filter(R.compose(R.not,R.isNil),attr);
+					const testColorsisNotEmpty= R.compose(R.all(R.equals(undefined)),R.values)(attr)
+
 						return (
+						!testColorsisNotEmpty &&	
 						<React.Fragment key={name}>
-								<MainListElement name={name}>
+								<MainListElement name={name} color={pair}>
 									<MainListElementColor color={pair}/>
 								</MainListElement>
 						</React.Fragment>
@@ -52,6 +57,6 @@ const MainList = (props) =>  {
 		);
 }
 
-export default connect(state => ({ products: state.basket.products, filters:state.basket.currentFilter }))(
+export default connect(state => ({ products: state.basket.products, filters:state.basket.currentFilter}),{ProductsFilter})(
 	MainList
 );
