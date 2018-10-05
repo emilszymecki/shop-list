@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 const R = require('ramda');
-const MainListElementColor = ({color}) => {
+const MainListElementColor = ({color,name,onClick}) => {
 		//console.log(color)
 		const colorsList = R.keys(color)
 		const renderListColor = colorsList.map(el => {
-									return (<h3>{el}</h3>)
+									return (<li key={name+el}><a href="" onClick={onClick}>{el}</a></li>)
 								})
 		return(
-				<div>{renderListColor}</div>
+				<ul>{renderListColor}</ul>
 			)
 }
 

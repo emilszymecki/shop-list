@@ -1,42 +1,64 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Dropdown } from "semantic-ui-react";
-import { FilterAdd } from "../reducers/basket";
+import { FilterAdd,ProductsFilter } from "../reducers/basket";
 import DropdownExampleMultipleSelection from "./DropDown";
+import {colors,category} from '../helpers/filters'
 
-const colors = [
-	{ key: "czarny", text: "czarny", value: "czarny" },
-	{ key: "czerwony", text: "czerwony", value: "czerwony" },
-	{ key: "zielony", text: "zielony", value: "zielony" },
-	{ key: "żółty", text: "żółty", value: "żółty" },
-	{ key: "niebieski", text: "niebieski", value: "niebieski" },
-	{ key: "biały", text: "biały", value: "biały" }
-];
-
-const category = [
-	{ key: "kwadrat", text: "kwadrat", value: "kwadrat" },
-	{ key: "koło", text: "koło", value: "koło" },
-	{ key: "trójkąt", text: "trójkąt", value: "trójkąt" },
-	{ key: "prostokąt", text: "prostokąt", value: "prostokąt" },
-	{ key: "gwiazdka", text: "gwiazdka", value: "gwiazdka" }
-];
+const R = require('ramda');
 
 const ColorFilter = DropdownExampleMultipleSelection("Colors")(colors);
 const CategoryFilter = DropdownExampleMultipleSelection("Categories")(category);
 
 class MainInput extends Component {
-	handleInputChange = (evt, data) => {
+
+	 handleInputChange = (evt, data) => {
 		evt.preventDefault();
 
 		const name = data.placeholder;
+		const value = data.value
 
 		this.props.FilterAdd({
 			[name]: data.value
 		});
+		
 	};
 
-	render() {
-		return (
+	componentDidMount(){
+		this.props.ProductsFilter(this.props.products)
+	}
+
+	componentDidUpdate(){
+		
+		const Categories = this.props.filters.Categories
+		const CategoriesTest = !R.isEmpty(Categories)
+
+		const Colors = this.props.filters.Colors
+		const ColorsTest = !R.isEmpty(Colors)
+
+
+		const CategoriesFilter = (state) => {
+				if(CategoriesTest){
+					return R.filter( el => Categories.indexOf(el.type) != -1,state)
+				}else{
+					return state
+				}
+		}
+
+		const ColorsFilter = (state) => {
+				if(ColorsTest){
+					return R.map(x => R.assoc('attr',R.pickAll(Colors,R.prop("attr",x)),x),state)
+				}else{
+					return state
+				}
+		}
+
+		const newState = R.pipe(CategoriesFilter,ColorsFilter)(this.props.products)
+		this.props.ProductsFilter(newState)
+	}
+
+		render(){
+			return (
 			<React.Fragment>
 				<Label name={"Color"}>
 					<ColorFilter onChange={this.handleInputChange} />
@@ -45,9 +67,10 @@ class MainInput extends Component {
 					<CategoryFilter onChange={this.handleInputChange} />
 				</Label>
 			</React.Fragment>
-		);
+			);	
+		}
+		
 	}
-}
 
 const Label = ({ name, children }) => {
 	return (
@@ -59,6 +82,6 @@ const Label = ({ name, children }) => {
 };
 
 export default connect(
-	state => ({ currentBasket: state.basket.currentBasket }),
-	{ FilterAdd }
+	state => ({ products: state.basket.products, filters: state.basket.currentFilter }),
+	{FilterAdd,ProductsFilter}
 )(MainInput);
