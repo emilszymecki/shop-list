@@ -30,3 +30,11 @@
     transform: rotate(360deg);
   }
 }
+
+.checked{
+  color:red;
+}
+
+.list:hover { 
+   color: black;
+}

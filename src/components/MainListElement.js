@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MainListElementColor from "./MainListElementColor";
 import MainListElementPrice from "./MainListElementPrice";
 import MainListElementSelect from "./MainListElementSelect";
+import { Header } from 'semantic-ui-react'
 const R = require("ramda");
 
 const selectRandom = arr => {
@@ -55,10 +56,10 @@ class MainListElement extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<h1>
+				<Header as="h2">
 					Kategoria:
 					{this.props.name}
-				</h1>
+				</Header>
 				<MainListElementSelect name={this.props.name} selectColor={this.state.selectColor}/>
 				<MainListElementColor
 					selectColor={this.state.selectColor}

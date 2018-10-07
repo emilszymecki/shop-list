@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
+import { Header } from 'semantic-ui-react'
 
 const MainListElementSelect = ({name,selectColor}) => {
 		return(
-				<h3>Wybrano: {name} {selectColor}</h3>
+				<Header as="h3">Wybrano: {name} {selectColor}</Header>
 			)
 }
 

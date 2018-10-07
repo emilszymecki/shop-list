@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
+import { Header } from 'semantic-ui-react'
 
 const MainListElementPrice = ({price}) => {
 		return(
-				<h1>Cena: {price}</h1>
+				<Header as="h3">Cena: {price}</Header>
 			)
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Container, Header } from "semantic-ui-react";
 import { FilterAdd,ProductsFilter } from "../reducers/basket";
 import DropdownExampleMultipleSelection from "./DropDown";
 import {colors,category} from '../helpers/filters'
@@ -60,10 +60,10 @@ class MainInput extends Component {
 		render(){
 			return (
 			<React.Fragment>
-				<Label name={"Color"}>
+				<Label name={"Kolor"}>
 					<ColorFilter onChange={this.handleInputChange} />
 				</Label>
-				<Label name={"Category"}>
+				<Label name={"Kategoria"}>
 					<CategoryFilter onChange={this.handleInputChange} />
 				</Label>
 			</React.Fragment>

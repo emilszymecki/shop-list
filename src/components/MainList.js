@@ -4,6 +4,7 @@ import { ProductsFilter } from "../reducers/basket";
 import MainListElement from "./MainListElement";
 import MainListElementColor from "./MainListElementColor";
 import {notEmpty,objIsEmpty} from '../helpers/filters'
+import { Card } from 'semantic-ui-react'
 
 const R = require("ramda");
 
@@ -15,18 +16,21 @@ const MainList = props => {
 
 		return (
 			!ColorsisNotEmpty && (
-				<React.Fragment key={name}>
-					<MainListElement name={name} color={pair} />
-				</React.Fragment>
+				<Card>
+					<Card.Content key={name}>
+						<MainListElement name={name} color={pair} />
+					</Card.Content>	
+				</Card>
+				
 			)
 		);
 	});
 
 	return (
-		<div>
-			{JSON.stringify(props.products)}
+		<Card.Group itemsPerRow={2}>
+			{/*JSON.stringify(props.products)*/}
 			{ProductElement}
-		</div>
+		</Card.Group>
 	);
 };
 
