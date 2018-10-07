@@ -24,7 +24,7 @@ class MainListElement extends Component {
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		const { keys, randomColor, price } = this.getData();
 
-		console.log(prevState, keys);
+		//console.log(prevState, keys);
 		if (keys.indexOf(prevState.selectColor) == -1) {
 			this.setState({ selectColor: randomColor, price: price });
 		}

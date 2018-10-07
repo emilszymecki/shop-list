@@ -16,8 +16,8 @@ const MainList = props => {
 
 		return (
 			!ColorsisNotEmpty && (
-				<Card>
-					<Card.Content key={name}>
+				<Card key={name} >
+					<Card.Content>
 						<MainListElement name={name} color={pair} />
 					</Card.Content>	
 				</Card>

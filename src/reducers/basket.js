@@ -48,8 +48,8 @@ const initState = {
 			attr: {
 				czarny: { cena: 111 },
 				czerwony: { cena: 222 },
-				zielony: { cena: 333 },
-				żółty: { cena: 444 },
+				//zielony: { cena: 333 },
+				//żółty: { cena: 444 },
 				niebieski: { cena: 555 },
 				biały: { cena: 666 }
 			}
@@ -57,23 +57,23 @@ const initState = {
 		{
 			type: "trójkąt",
 			attr: {
-				czarny: { cena: 111 },
+				//czarny: { cena: 111 },
 				czerwony: { cena: 222 },
 				zielony: { cena: 333 },
 				żółty: { cena: 444 },
 				niebieski: { cena: 555 },
-				biały: { cena: 666 }
+				//biały: { cena: 666 }
 			}
 		},
 		{
 			type: "prostokąt",
 			attr: {
 				czarny: { cena: 111 },
-				czerwony: { cena: 222 },
+				//czerwony: { cena: 222 },
 				zielony: { cena: 333 },
-				żółty: { cena: 444 },
-				niebieski: { cena: 555 },
-				biały: { cena: 666 }
+				//żółty: { cena: 444 },
+				//niebieski: { cena: 555 },
+				//biały: { cena: 666 }
 			}
 		},
 		{
