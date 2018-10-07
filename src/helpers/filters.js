@@ -1,3 +1,5 @@
+const R = require("ramda");
+
 export const colors = [
 	{ key: "czarny", text: "czarny", value: "czarny" },
 	{ key: "czerwony", text: "czerwony", value: "czerwony" },
@@ -14,3 +16,16 @@ export const category = [
 	{ key: "prostokąt", text: "prostokąt", value: "prostokąt" },
 	{ key: "gwiazdka", text: "gwiazdka", value: "gwiazdka" }
 ]
+
+
+export const notEmpty = R.filter(
+	R.compose(
+		R.not,
+		R.isNil
+	)
+);
+
+export const objIsEmpty = R.compose(
+	R.all(R.equals(undefined)),
+	R.values
+);

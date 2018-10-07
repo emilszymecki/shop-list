@@ -3,32 +3,34 @@ import { connect } from "react-redux";
 import { ProductsFilter } from "../reducers/basket";
 import MainListElement from "./MainListElement";
 import MainListElementColor from "./MainListElementColor";
+import {notEmpty,objIsEmpty} from '../helpers/filters'
 
-const R = require('ramda');
+const R = require("ramda");
 
-const MainList = (props) =>  {
+
+const MainList = props => {
+	const ProductElement = props.products.map(({ type: name, attr }) => {
+		const pair = notEmpty(attr);
+		const ColorsisNotEmpty = objIsEmpty(attr);
 
 		return (
-			<div>
-				{JSON.stringify(props.products)}
-				{props.products.map( ({type:name, attr}) => {
-					const pair = R.filter(R.compose(R.not,R.isNil),attr);
-					const testColorsisNotEmpty= R.compose(R.all(R.equals(undefined)),R.values)(attr)
-
-						return (
-						!testColorsisNotEmpty &&	
-						<React.Fragment key={name}>
-								<MainListElement name={name} color={pair}/>
-
-						</React.Fragment>
-						)
-				}
-
-					)}
-			</div>
+			!ColorsisNotEmpty && (
+				<React.Fragment key={name}>
+					<MainListElement name={name} color={pair} />
+				</React.Fragment>
+			)
 		);
-}
+	});
 
-export default connect(state => ({ products: state.basket.productsFiltered}),{ProductsFilter})(
-	MainList
-);
+	return (
+		<div>
+			{JSON.stringify(props.products)}
+			{ProductElement}
+		</div>
+	);
+};
+
+export default connect(
+	state => ({ products: state.basket.productsFiltered }),
+	{ ProductsFilter }
+)(MainList);
